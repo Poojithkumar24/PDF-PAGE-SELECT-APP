@@ -1,9 +1,13 @@
+import React, { useState } from 'react';
+import FileUploadForm from './components/FileUploadForm';
 
+const App = () =>{
+  
 
-function App() {
   return (
-    <div className="h-screen flex justify-center items-center">
-      Hello World
+    <div>
+      
+      <FileUploadForm />
     </div>
   );
 }
