@@ -1,12 +1,19 @@
+
 require('dotenv').config()
 
 const mongoose = require('mongoose')
-
-const express = require('express');
-const multer = require('multer');
-const upload = multer({dest:'uploads/'});
-//express app
+const cors = require("cors");
+const express = require("express");
 const app = express();
+
+global.__basedir = __dirname;
+
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
+
+app.use(cors(corsOptions));
+
 
 //middleware
 app.use(express.json())
@@ -15,15 +22,12 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.get('/',(req,res) =>{
-  res.send('Hello World')
-})
-
-app.post('/api/upload',upload.single('file'),(req,res)=>{
-  res.json(req.file);
-});
 
 
+const initRoutes = require("./routes/index");
+
+app.use(express.urlencoded({ extended: true }));
+app.use(initRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
@@ -33,7 +37,9 @@ mongoose.connect(process.env.MONGO_URI)
     })
     .catch((error)=>{
         console.log(error)
-    })
+})
+
+
 
 
 
