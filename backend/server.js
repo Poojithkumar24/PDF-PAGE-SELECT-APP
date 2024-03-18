@@ -24,7 +24,6 @@ app.use((req,res,next)=>{
 
 
 
-const initRoutes = require("./routes/index");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(initRoutes);
